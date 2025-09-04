@@ -23,7 +23,7 @@ public class Post {
     // Many posts belong to one user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Person person;
 
     // Many posts belong to one endpoint
     @ManyToOne(fetch = FetchType.LAZY)

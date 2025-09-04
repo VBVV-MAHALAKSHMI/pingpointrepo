@@ -26,5 +26,5 @@ public class EndPoint {
 
     @ManyToMany(mappedBy = "subscribedEndpoints")
     @Builder.Default
-    private Set<User> subscribers = new HashSet<>();
+    private Set<Person> subscribers = new HashSet<>();
 }

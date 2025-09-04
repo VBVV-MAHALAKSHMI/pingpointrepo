@@ -22,14 +22,14 @@ public class Person {
     private String email;
 
     // One user can post many updates
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Post> posts = new ArrayList<>();
 
     // Many users can subscribe to many endpoints
     @ManyToMany
     @JoinTable(
-            name = "user_endpoints",
+            name = "person_endpoints",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "endpoint_id")
     )

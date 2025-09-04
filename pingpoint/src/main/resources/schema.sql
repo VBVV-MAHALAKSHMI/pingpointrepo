@@ -1,6 +1,6 @@
 -- schema.sql
 
-CREATE TABLE users (
+CREATE TABLE persons (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100),
     email VARCHAR(100)
@@ -16,15 +16,15 @@ CREATE TABLE posts (
     content VARCHAR(255),
     user_id INT,
     endpoint_id BIGINT,
-    CONSTRAINT fk_post_user FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_post_user FOREIGN KEY (user_id) REFERENCES persons(id),
     CONSTRAINT fk_post_endpoint FOREIGN KEY (endpoint_id) REFERENCES endpoints(id)
 );
 
 -- Join table for many-to-many relation between users & endpoints
-CREATE TABLE user_endpoints (
+CREATE TABLE person_endpoints (
     user_id INT,
     endpoint_id BIGINT,
     PRIMARY KEY (user_id, endpoint_id),
-    CONSTRAINT fk_ue_user FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_ue_user FOREIGN KEY (user_id) REFERENCES persons(id),
     CONSTRAINT fk_ue_endpoint FOREIGN KEY (endpoint_id) REFERENCES endpoints(id)
 );
