@@ -1,6 +1,10 @@
 package com.demo.pingpoint.service;
 
 import com.demo.pingpoint.model.Post;
+import com.demo.pingpoint.model.Person;
+import com.demo.pingpoint.model.EndPoint;
+import com.demo.pingpoint.repository.PersonRepository;
+import com.demo.pingpoint.repository.EndPointRepository;
 import com.demo.pingpoint.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +14,13 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final PersonRepository personRepository;
+    private final EndPointRepository endPointRepository;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, PersonRepository personRepository, EndPointRepository endPointRepository) {
         this.postRepository = postRepository;
+        this.personRepository = personRepository;
+        this.endPointRepository = endPointRepository;
     }
 
     public List<Post> getAll() {
@@ -39,6 +47,25 @@ public class PostService {
     public void delete(int id) {
         Post existing = getById(id);
         postRepository.delete(existing);
+    }
+
+    public Post createForUserAndEndpoint(String content, int userId, Long endpointId) {
+        Person person = personRepository.findById(userId).orElseThrow();
+        EndPoint endpoint = endPointRepository.findById(endpointId).orElseThrow();
+        Post post = Post.builder()
+                .content(content)
+                .person(person)
+                .endpoint(endpoint)
+                .build();
+        return postRepository.save(post);
+    }
+
+    public List<Post> getPostsByUser(int userId) {
+        return postRepository.findByPersonId(userId);
+    }
+
+    public List<Post> getPostsByEndpoint(Long endpointId) {
+        return postRepository.findByEndpointId(endpointId);
     }
 }
 

@@ -1,10 +1,12 @@
 package com.demo.pingpoint.service;
 
 import com.demo.pingpoint.model.EndPoint;
+import com.demo.pingpoint.model.Person;
 import com.demo.pingpoint.repository.EndPointRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EndPointService {
@@ -37,6 +39,10 @@ public class EndPointService {
     public void delete(Long id) {
         EndPoint existing = getById(id);
         endPointRepository.delete(existing);
+    }
+
+    public Set<Person> getSubscribers(Long id) {
+        return getById(id).getSubscribers();
     }
 }
 

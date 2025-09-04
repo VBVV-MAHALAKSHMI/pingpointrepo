@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Getter
@@ -22,9 +23,11 @@ public class EndPoint {
 
     @OneToMany(mappedBy = "endpoint", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
+    @JsonIgnore
     private List<Post> updates = new ArrayList<>();
 
     @ManyToMany(mappedBy = "subscribedEndpoints")
     @Builder.Default
+    @JsonIgnore
     private Set<Person> subscribers = new HashSet<>();
 }

@@ -1,5 +1,10 @@
 -- schema.sql
 
+DROP TABLE IF EXISTS person_endpoints;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS endpoints;
+DROP TABLE IF EXISTS persons;
+
 CREATE TABLE persons (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100),

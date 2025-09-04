@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Getter
@@ -11,6 +12,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 @Table(name="persons")
 public class Person {
 
@@ -24,6 +26,7 @@ public class Person {
     // One user can post many updates
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
+    @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 
     // Many users can subscribe to many endpoints
@@ -34,5 +37,6 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "endpoint_id")
     )
     @Builder.Default
+    @JsonIgnore
     private Set<EndPoint> subscribedEndpoints = new HashSet<>();
 }
